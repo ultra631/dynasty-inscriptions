@@ -154,7 +154,8 @@
       <h2>Inscris-toi</h2>
       <div class="sous">Ça prend 1 minute. Un admin te contactera sur Discord.</div>
 
-      <label class="lbl" for="f-nom">Gamertag (nom dans le jeu)</label>
+      <label class="lbl" for="f-nom">Gamertag PlayStation ou Xbox <span style="color:var(--or)">*</span></label>
+      <div style="font-size:12.5px;color:var(--argent2);margin:-2px 0 8px">Ton nom exact dans le jeu (ID PSN ou Gamertag Xbox) — pas ton nom Discord.</div>
       <input type="text" id="f-nom" placeholder="Ex. SNIPER_MTL" maxlength="40" autocomplete="off">
 
       <label class="lbl" for="f-plat">Plateforme</label>
@@ -304,7 +305,7 @@ function envoyer(){
   const plateforme = document.getElementById('f-plat').value;
   const position = positions();
   const discord = document.getElementById('f-discord').value.trim();
-  if(!nom){ alert('Entre ton gamertag.'); return; }
+  if(!nom){ alert('Entre ton gamertag PlayStation ou Xbox (ton nom dans le jeu).'); return; }
   if(!position){ alert('Choisis au moins une position.'); return; }
   if(!discord){ alert('Entre ton nom Discord — c\'est obligatoire pour qu\'on puisse te contacter.'); return; }
   const btn = document.getElementById('btn-envoyer'); btn.disabled = true; btn.textContent = 'ENVOI…';
