@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Inscription — Tournois DYNASTY</title>
+<meta name="description" content="Inscris-toi aux tournois de la Dynasty Hockey League (NHL 27, World of Chel).">
+<meta name="theme-color" content="#0A0A0C">
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#0A0A0C; --noir2:#111114; --carte:#141418; --bordure:#26262E;
+    --or:#D4AF37; --or2:#E8C964; --or-sombre:#9C7F24;
+    --texte:#F2EEE3; --argent:#B8B4A8; --argent2:#7A776E;
+    --rouge:#E05555; --vert:#5FD08A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--noir);color:var(--texte);font-family:'Inter',sans-serif;line-height:1.6;min-height:100vh;overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(900px 420px at 50% -8%, rgba(212,175,55,.10), transparent 60%),
+               radial-gradient(700px 500px at 100% 100%, rgba(212,175,55,.05), transparent 60%)}
+  .wrap{max-width:560px;margin:0 auto;padding:0 18px;position:relative;z-index:1}
+
+  /* ---- header ---- */
+  header{padding:26px 0 8px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+  .brand img{width:44px;height:44px;object-fit:contain}
+  .brand .t1{font-family:'Cinzel',serif;font-weight:800;font-size:19px;letter-spacing:.14em;
+    background:linear-gradient(135deg,var(--or2),var(--or),var(--or-sombre));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+  .brand .t2{font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--argent2);margin-top:3px}
+  .btn-admin{background:transparent;border:1px solid var(--bordure);color:var(--argent2);border-radius:10px;padding:8px 11px;cursor:pointer;font-size:15px}
+  .btn-admin.on{border-color:var(--or);color:var(--or)}
+
+  /* ---- hero / info tournoi ---- */
+  .hero{text-align:center;padding:30px 0 10px}
+  .eyebrow{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.32em;color:var(--or);text-transform:uppercase}
+  h1{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(26px,7vw,40px);line-height:1.08;margin:10px 0 6px;letter-spacing:.02em}
+  .hero .date{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.14em;color:var(--argent)}
+  .hero .desc{color:var(--argent);font-size:14.5px;margin-top:12px;white-space:pre-line}
+  .ligne-or{width:60px;height:2px;background:var(--or);margin:20px auto 0;border-radius:2px}
+
+  /* ---- carte formulaire ---- */
+  .carte{background:var(--carte);border:1px solid var(--bordure);border-radius:18px;padding:24px 20px;margin:24px 0}
+  .carte h2{font-family:'Cinzel',serif;font-size:17px;font-weight:700;letter-spacing:.06em;margin-bottom:6px}
+  .carte .sous{color:var(--argent2);font-size:13px;margin-bottom:18px}
+  label.lbl{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--argent2);margin:14px 0 6px;font-weight:600}
+  input[type=text],select{width:100%;background:var(--noir);border:1px solid var(--bordure);border-radius:11px;padding:13px 14px;
+    color:var(--texte);font-family:inherit;font-size:15px;outline:none;transition:border-color .15s}
+  input[type=text]:focus,select:focus{border-color:var(--or)}
+  select option{background:#141418}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{position:relative}
+  .chip input{position:absolute;opacity:0;pointer-events:none}
+  .chip span{display:inline-block;padding:10px 16px;border-radius:10px;border:1px solid var(--bordure);background:var(--noir);
+    font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.1em;color:var(--argent);cursor:pointer;user-select:none;transition:all .15s}
+  .chip input:checked + span{background:var(--or);border-color:var(--or);color:#0A0A0C}
+  .btn-or{width:100%;margin-top:22px;background:linear-gradient(135deg,var(--or2),var(--or));color:#0A0A0C;border:none;border-radius:12px;
+    padding:15px;font-family:'Cinzel',serif;font-weight:800;font-size:15px;letter-spacing:.1em;cursor:pointer;
+    box-shadow:0 8px 28px rgba(212,175,55,.25);transition:transform .15s,box-shadow .15s}
+  .btn-or:hover{transform:translateY(-1px);box-shadow:0 12px 34px rgba(212,175,55,.35)}
+  .btn-or:disabled{opacity:.5;cursor:not-allowed;transform:none}
+  .merci{display:none;text-align:center;padding:34px 16px}
+  .merci .ico{font-size:48px}
+  .merci h3{font-family:'Cinzel',serif;font-size:20px;margin:12px 0 6px;color:var(--or)}
+  .merci p{color:var(--argent);font-size:14px}
+  .ferme{text-align:center;padding:30px 16px;color:var(--argent)}
+  .ferme .ico{font-size:40px;margin-bottom:8px}
+  .ferme b{color:var(--texte);display:block;font-family:'Cinzel',serif;font-size:17px;margin-bottom:4px}
+
+  /* ---- admin ---- */
+  .admin-only{display:none}
+  body.is-admin .admin-only{display:block}
+  .ap{background:rgba(212,175,55,.04);border:1px dashed rgba(212,175,55,.4);border-radius:16px;padding:20px;margin:22px 0}
+  .ap .titre{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.26em;color:var(--or);text-transform:uppercase;margin-bottom:12px}
+  .rangee{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .btn-mini{background:transparent;border:1px solid var(--bordure);color:var(--argent);border-radius:9px;padding:8px 13px;font-size:13px;cursor:pointer;font-family:inherit;font-weight:600}
+  .btn-mini.ok{border-color:rgba(95,208,138,.5);color:var(--vert)}
+  .btn-mini.or{border-color:var(--or);color:var(--or)}
+  .btn-mini.rouge{border-color:rgba(224,85,85,.5);color:var(--rouge)}
+  .resume{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:16px 0 12px}
+  .r-compte{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.06em;color:var(--or);background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.35);border-radius:99px;padding:6px 15px}
+  .r-dbl{font-size:12.5px;font-weight:600;color:#FFB3AB;background:rgba(224,85,85,.1);border:1px solid rgba(224,85,85,.4);border-radius:99px;padding:6px 13px}
+  .r-ok{font-size:12.5px;color:var(--vert);background:rgba(95,208,138,.08);border:1px solid rgba(95,208,138,.3);border-radius:99px;padding:6px 13px}
+  .ic{background:var(--carte);border:1px solid var(--bordure);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+  .ic.traite{opacity:.55}
+  .ic.doublon{border-color:rgba(224,85,85,.6);box-shadow:0 0 0 1px rgba(224,85,85,.25)}
+  .ic-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .ic-head b{font-size:15px}
+  .badge{font-size:10.5px;font-weight:700;border-radius:6px;padding:2px 8px;letter-spacing:.04em}
+  .badge.new{background:rgba(212,175,55,.15);color:var(--or)}
+  .badge.ok{background:rgba(95,208,138,.12);color:var(--vert)}
+  .badge.dbl{background:var(--rouge);color:#fff}
+  .ic-meta{font-size:13px;color:var(--argent);margin-top:4px}
+  .ic-date{font-size:11px;color:var(--argent2);margin-top:6px}
+  .ic-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .vide{text-align:center;color:var(--argent2);padding:24px;font-size:14px}
+
+  /* modale login */
+  .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(6px);z-index:50;align-items:center;justify-content:center;padding:18px}
+  .modal.open{display:flex}
+  .modal-box{background:var(--carte);border:1px solid var(--or);border-radius:16px;padding:24px;max-width:360px;width:100%}
+  .modal-box h3{font-family:'Cinzel',serif;font-size:17px;margin-bottom:12px}
+  input[type=password]{width:100%;background:var(--noir);border:1px solid var(--bordure);border-radius:11px;padding:13px 14px;color:var(--texte);font-size:15px;outline:none}
+  input[type=password]:focus{border-color:var(--or)}
+  .err{color:var(--rouge);font-size:13px;margin-top:8px;display:none}
+
+  footer{text-align:center;padding:26px 0 40px;color:var(--argent2);font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+  footer a{color:var(--or);text-decoration:none}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn-or{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <a class="brand" href="https://dynastyhockeyleague.net" target="_blank" rel="noopener">
+      <img src="logo.png" alt="" onerror="this.style.display='none'">
+      <div><div class="t1">DYNASTY</div><div class="t2">Tournois</div></div>
+    </a>
+    <button class="btn-admin" id="btn-admin" onclick="toggleAdmin()" title="Admin">👑</button>
+  </header>
+
+  <!-- INFO TOURNOI (modifiable par l'admin) -->
+  <section class="hero">
+    <div class="eyebrow">Inscription</div>
+    <h1 id="t-nom">Prochain tournoi</h1>
+    <div class="date" id="t-date"></div>
+    <div class="desc" id="t-desc"></div>
+    <div class="ligne-or"></div>
+  </section>
+
+  <!-- PANNEAU ADMIN : infos du tournoi + ouverture -->
+  <div class="ap admin-only">
+    <div class="titre">👑 Infos du tournoi</div>
+    <label class="lbl">Nom du tournoi</label>
+    <input type="text" id="adm-nom" placeholder="Ex. Tournoi du 17-18 octobre">
+    <label class="lbl">Date / heure</label>
+    <input type="text" id="adm-date" placeholder="Ex. 17 et 18 octobre · 19h">
+    <label class="lbl">Description (optionnel)</label>
+    <input type="text" id="adm-desc" placeholder="Ex. Format 3v3, 6 équipes, PS5 et Xbox">
+    <div class="rangee">
+      <button class="btn-mini or" onclick="sauverInfos()">💾 Enregistrer</button>
+      <button class="btn-mini" id="btn-ouvert" onclick="basculerOuvert()">…</button>
+    </div>
+  </div>
+
+  <!-- FORMULAIRE -->
+  <div class="carte" id="carte-form">
+    <div id="form-zone">
+      <h2>Inscris-toi</h2>
+      <div class="sous">Ça prend 1 minute. Un admin te contactera sur Discord.</div>
+
+      <label class="lbl" for="f-nom">Gamertag (nom dans le jeu)</label>
+      <input type="text" id="f-nom" placeholder="Ex. SNIPER_MTL" maxlength="40" autocomplete="off">
+
+      <label class="lbl" for="f-plat">Plateforme</label>
+      <select id="f-plat">
+        <option value="PS5">PS5</option>
+        <option value="Xbox Series">Xbox Series</option>
+      </select>
+
+      <label class="lbl">Position(s)</label>
+      <div class="chips" id="f-pos">
+        <label class="chip"><input type="checkbox" value="C"><span>C</span></label>
+        <label class="chip"><input type="checkbox" value="A"><span>A</span></label>
+        <label class="chip"><input type="checkbox" value="D"><span>D</span></label>
+        <label class="chip"><input type="checkbox" value="G"><span>G</span></label>
+      </div>
+
+      <label class="lbl" for="f-discord">Discord</label>
+      <input type="text" id="f-discord" placeholder="ton_pseudo" maxlength="40" autocomplete="off">
+
+      <button class="btn-or" id="btn-envoyer" onclick="envoyer()">M'INSCRIRE</button>
+    </div>
+    <div class="merci" id="merci">
+      <div class="ico">🏆</div>
+      <h3>Inscription reçue!</h3>
+      <p>Merci! On te contacte sur Discord avant le tournoi.</p>
+      <div class="rangee" style="justify-content:center;margin-top:14px"><button class="btn-mini" onclick="reinit()">Inscrire un autre joueur</button></div>
+    </div>
+    <div class="ferme" id="ferme" style="display:none">
+      <div class="ico">🔒</div>
+      <b>Inscriptions fermées</b>
+      Reviens pour le prochain tournoi — suis le Discord pour les annonces!
+    </div>
+  </div>
+
+  <!-- LISTE ADMIN -->
+  <div class="ap admin-only">
+    <div class="titre">📋 Inscriptions reçues</div>
+    <div id="liste"></div>
+    <div class="rangee">
+      <button class="btn-mini" onclick="exporterCSV()">📥 Exporter (CSV)</button>
+      <button class="btn-mini" onclick="copierListe()">📋 Copier la liste</button>
+      <button class="btn-mini rouge" onclick="toutSupprimer()">🗑️ Tout effacer</button>
+    </div>
+  </div>
+
+  <footer><a href="https://dynastyhockeyleague.net" target="_blank" rel="noopener">Dynasty Hockey League</a> · Tournois</footer>
+</div>
+
+<!-- LOGIN -->
+<div class="modal" id="modale-login">
+  <div class="modal-box">
+    <h3>🔒 Accès admin</h3>
+    <input type="password" id="mdp" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')connexion()">
+    <div class="err" id="err">Mot de passe incorrect.</div>
+    <div class="rangee">
+      <button class="btn-mini or" onclick="connexion()">Entrer</button>
+      <button class="btn-mini" onclick="fermerLogin()">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+/* ================= CONFIG ================= */
+const MDP_ADMIN = 'tournoi2026';
+const COLL = 'inscriptionsTournoi';           // liste séparée, juste pour ce site
+const CONFIG_DOC = ['tournoiInscriptionConfig','general'];
+
+firebase.initializeApp({
+  apiKey: "AIzaSyB2FMin3aA93x9OnEGfC0-UP3vkGFxee9c",
+  authDomain: "dynasty-chel.firebaseapp.com",
+  projectId: "dynasty-chel",
+  storageBucket: "dynasty-chel.firebasestorage.app",
+  messagingSenderId: "550460590216",
+  appId: "1:550460590216:web:1bb1626fb2e202364af73d"
+});
+const db = firebase.firestore();
+
+let estAdmin = false, snapInsc = null, config = { ouvert: true, nom: '', date: '', desc: '' };
+
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function formaterDate(ts){ try{ const d = ts && ts.toDate ? ts.toDate() : null; return d ? d.toLocaleDateString('fr-CA',{day:'numeric',month:'long',year:'numeric'}) + ' · ' + d.toLocaleTimeString('fr-CA',{hour:'2-digit',minute:'2-digit'}) : ''; }catch(e){ return ''; } }
+
+/* ================= ADMIN ================= */
+function toggleAdmin(){
+  if(estAdmin){ estAdmin = false; sessionStorage.removeItem('ti_admin'); appliquer(); return; }
+  document.getElementById('mdp').value = ''; document.getElementById('err').style.display = 'none';
+  document.getElementById('modale-login').classList.add('open');
+  setTimeout(() => document.getElementById('mdp').focus(), 80);
+}
+function fermerLogin(){ document.getElementById('modale-login').classList.remove('open'); }
+function connexion(){
+  if(document.getElementById('mdp').value === MDP_ADMIN){
+    estAdmin = true; sessionStorage.setItem('ti_admin','1'); fermerLogin(); appliquer();
+  } else { document.getElementById('err').style.display = 'block'; }
+}
+function appliquer(){
+  document.body.classList.toggle('is-admin', estAdmin);
+  document.getElementById('btn-admin').classList.toggle('on', estAdmin);
+  rendreInfos(); rendreListe();
+}
+
+/* ================= CONFIG TOURNOI ================= */
+db.collection(CONFIG_DOC[0]).doc(CONFIG_DOC[1]).onSnapshot(d => {
+  if(d.exists) config = Object.assign({ ouvert: true, nom: '', date: '', desc: '' }, d.data());
+  rendreInfos(); rendreFormulaire();
+});
+function rendreInfos(){
+  document.getElementById('t-nom').textContent = config.nom || 'Prochain tournoi';
+  document.getElementById('t-date').textContent = config.date || '';
+  document.getElementById('t-desc').textContent = config.desc || '';
+  if(estAdmin){
+    document.getElementById('adm-nom').value = config.nom || '';
+    document.getElementById('adm-date').value = config.date || '';
+    document.getElementById('adm-desc').value = config.desc || '';
+    const b = document.getElementById('btn-ouvert');
+    b.textContent = config.ouvert !== false ? '🔒 Fermer les inscriptions' : '🔓 Ouvrir les inscriptions';
+    b.className = 'btn-mini ' + (config.ouvert !== false ? 'rouge' : 'ok');
+  }
+}
+function sauverInfos(){
+  if(!estAdmin) return;
+  db.collection(CONFIG_DOC[0]).doc(CONFIG_DOC[1]).set({
+    nom: document.getElementById('adm-nom').value.trim(),
+    date: document.getElementById('adm-date').value.trim(),
+    desc: document.getElementById('adm-desc').value.trim()
+  }, { merge: true }).catch(e => alert(e.message));
+}
+function basculerOuvert(){
+  if(!estAdmin) return;
+  const nouv = !(config.ouvert !== false);
+  db.collection(CONFIG_DOC[0]).doc(CONFIG_DOC[1]).set({ ouvert: nouv }, { merge: true }).catch(e => alert(e.message));
+}
+
+/* ================= FORMULAIRE ================= */
+function rendreFormulaire(){
+  const ouvert = config.ouvert !== false;
+  document.getElementById('form-zone').style.display = ouvert ? '' : 'none';
+  document.getElementById('ferme').style.display = ouvert ? 'none' : '';
+  if(!ouvert) document.getElementById('merci').style.display = 'none';
+}
+function positions(){ return Array.from(document.querySelectorAll('#f-pos input:checked')).map(c => c.value).join(', '); }
+function envoyer(){
+  if(config.ouvert === false){ alert('Les inscriptions sont fermées.'); return; }
+  const nom = document.getElementById('f-nom').value.trim();
+  const plateforme = document.getElementById('f-plat').value;
+  const position = positions();
+  const discord = document.getElementById('f-discord').value.trim();
+  if(!nom){ alert('Entre ton gamertag.'); return; }
+  if(!position){ alert('Choisis au moins une position.'); return; }
+  const btn = document.getElementById('btn-envoyer'); btn.disabled = true; btn.textContent = 'ENVOI…';
+  db.collection(COLL).add({
+    nom, plateforme, position, discord, statut: 'nouveau',
+    tournoi: config.nom || '',
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  }).then(() => {
+    document.getElementById('form-zone').style.display = 'none';
+    document.getElementById('merci').style.display = 'block';
+    btn.disabled = false; btn.textContent = "M'INSCRIRE";
+  }).catch(e => { alert('Erreur : ' + e.message); btn.disabled = false; btn.textContent = "M'INSCRIRE"; });
+}
+function reinit(){
+  document.getElementById('f-nom').value = ''; document.getElementById('f-discord').value = '';
+  document.querySelectorAll('#f-pos input').forEach(c => c.checked = false);
+  document.getElementById('merci').style.display = 'none';
+  document.getElementById('form-zone').style.display = '';
+}
+
+/* ================= LISTE ADMIN ================= */
+db.collection(COLL).orderBy('createdAt','desc').onSnapshot(s => { snapInsc = s; rendreListe(); },
+  err => { const l = document.getElementById('liste'); if(l) l.innerHTML = '<div class="vide">Erreur : ' + esc(err.message) + '</div>'; });
+
+function analyse(){
+  const compte = {}; let total = 0;
+  if(snapInsc) snapInsc.forEach(d => { total++; const k = (d.data().nom || '').trim().toLowerCase(); if(k) compte[k] = (compte[k]||0) + 1; });
+  return { total, doublons: new Set(Object.keys(compte).filter(k => compte[k] > 1)) };
+}
+function rendreListe(){
+  const cont = document.getElementById('liste'); if(!cont || !estAdmin) return;
+  const { total, doublons } = analyse();
+  let html = '<div class="resume"><span class="r-compte">📋 ' + total + ' inscrit(s)</span>'
+    + (doublons.size ? '<span class="r-dbl">⚠️ ' + doublons.size + ' doublon(s)</span>' : (total ? '<span class="r-ok">✓ Aucun doublon</span>' : ''))
+    + '</div>';
+  if(!snapInsc || snapInsc.empty){ cont.innerHTML = html + '<div class="vide">Aucune inscription pour l\'instant.</div>'; return; }
+  snapInsc.forEach(d => {
+    const i = Object.assign({ id: d.id }, d.data());
+    const traite = i.statut === 'traite';
+    const k = (i.nom || '').trim().toLowerCase(); const dbl = k && doublons.has(k);
+    html += '<div class="ic' + (traite ? ' traite' : '') + (dbl ? ' doublon' : '') + '">'
+      + '<div class="ic-head"><b>' + esc(i.nom) + '</b>'
+        + (dbl ? '<span class="badge dbl">⚠️ Double</span>' : '')
+        + '<span class="badge ' + (traite ? 'ok' : 'new') + '">' + (traite ? 'Traité' : 'Nouveau') + '</span></div>'
+      + '<div class="ic-meta">' + esc(i.position) + ' · ' + esc(i.plateforme) + (i.discord ? ' · 💬 ' + esc(i.discord) : '') + (i.tournoi ? ' · 🏆 ' + esc(i.tournoi) : '') + '</div>'
+      + '<div class="ic-date">' + formaterDate(i.createdAt) + '</div>'
+      + '<div class="ic-actions">'
+        + '<button class="btn-mini' + (traite ? '' : ' ok') + '" onclick="basculer(\'' + i.id + '\',' + (traite ? 'false' : 'true') + ')">' + (traite ? 'Remettre nouveau' : 'Marquer traité') + '</button>'
+        + '<button class="btn-mini rouge" onclick="supprimer(\'' + i.id + '\')">Supprimer</button>'
+      + '</div></div>';
+  });
+  cont.innerHTML = html;
+}
+function basculer(id, traite){ if(!estAdmin) return; db.collection(COLL).doc(id).update({ statut: traite ? 'traite' : 'nouveau' }).catch(e => alert(e.message)); }
+function supprimer(id){ if(!estAdmin) return; if(confirm('Supprimer cette inscription ?')) db.collection(COLL).doc(id).delete().catch(e => alert(e.message)); }
+function toutSupprimer(){
+  if(!estAdmin || !snapInsc || snapInsc.empty) return;
+  if(!confirm('Effacer TOUTES les inscriptions (' + snapInsc.size + ') ? Irréversible.')) return;
+  if(!confirm('Vraiment sûr ? Exporte la liste avant si tu veux la garder.')) return;
+  const b = db.batch(); snapInsc.forEach(d => b.delete(d.ref)); b.commit().catch(e => alert(e.message));
+}
+function lignesExport(){
+  const out = [];
+  if(snapInsc) snapInsc.forEach(d => { const i = d.data(); out.push({ nom: i.nom||'', plateforme: i.plateforme||'', position: i.position||'', discord: i.discord||'', statut: i.statut||'', tournoi: i.tournoi||'', date: formaterDate(i.createdAt) }); });
+  return out;
+}
+function exporterCSV(){
+  if(!estAdmin) return;
+  const L = lignesExport(); if(!L.length){ alert('Rien à exporter.'); return; }
+  const q = v => '"' + String(v).replace(/"/g,'""') + '"';
+  const csv = ['Gamertag,Plateforme,Position,Discord,Statut,Tournoi,Date'].concat(L.map(l => [l.nom,l.plateforme,l.position,l.discord,l.statut,l.tournoi,l.date].map(q).join(','))).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' }));
+  a.download = 'inscriptions-tournoi.csv'; a.click();
+}
+function copierListe(){
+  if(!estAdmin) return;
+  const L = lignesExport(); if(!L.length){ alert('Rien à copier.'); return; }
+  const txt = L.map((l,i) => (i+1) + '. ' + l.nom + ' — ' + l.position + ' · ' + l.plateforme + (l.discord ? ' · ' + l.discord : '')).join('\n');
+  navigator.clipboard.writeText(txt).then(() => alert('Liste copiée! Colle-la dans Discord.')).catch(() => prompt('Copie ce texte :', txt));
+}
+
+/* ================= DÉMARRAGE ================= */
+if(sessionStorage.getItem('ti_admin') === '1') estAdmin = true;
+appliquer();
+</script>
+</body>
+</html>
