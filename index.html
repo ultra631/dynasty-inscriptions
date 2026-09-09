@@ -171,8 +171,8 @@
         <label class="chip"><input type="checkbox" value="G"><span>G</span></label>
       </div>
 
-      <label class="lbl" for="f-discord">Discord</label>
-      <input type="text" id="f-discord" placeholder="ton_pseudo" maxlength="40" autocomplete="off">
+      <label class="lbl" for="f-discord">Nom Discord <span style="color:var(--or)">*</span> (obligatoire)</label>
+      <input type="text" id="f-discord" placeholder="Ex. kevin_dhl (obligatoire)" maxlength="40" autocomplete="off">
 
       <button class="btn-or" id="btn-envoyer" onclick="envoyer()">M'INSCRIRE</button>
     </div>
@@ -306,6 +306,7 @@ function envoyer(){
   const discord = document.getElementById('f-discord').value.trim();
   if(!nom){ alert('Entre ton gamertag.'); return; }
   if(!position){ alert('Choisis au moins une position.'); return; }
+  if(!discord){ alert('Entre ton nom Discord — c\'est obligatoire pour qu\'on puisse te contacter.'); return; }
   const btn = document.getElementById('btn-envoyer'); btn.disabled = true; btn.textContent = 'ENVOI…';
   db.collection(COLL).add({
     nom, plateforme, position, discord, statut: 'nouveau',
